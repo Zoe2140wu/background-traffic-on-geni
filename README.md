@@ -25,8 +25,10 @@ to mount your extra disk space. Your extra disk space should be available in the
 
 Next, SSH into your router node to add static ARP entries. Run 
 
-`sudo arp -s 10.0.1.254 02:47:a9:bb:e0:d0`
-`sudo arp -s 10.0.2.254 02:37:a9:bb:e0:d0`
+```
+sudo arp -s 10.0.1.254 02:47:a9:bb:e0:d0
+sudo arp -s 10.0.2.254 02:37:a9:bb:e0:d0
+```
 
 That way traffic will run through the experiment nodes.
 
