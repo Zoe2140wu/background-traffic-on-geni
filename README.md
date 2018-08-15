@@ -38,7 +38,7 @@ to mount your extra disk space. Your extra disk space should be available in the
 Next, get the `replaywrapper` script from GitHub. In your `tcpreplay` node, run
 
 ```
-wget -P /usr/local/bin https://raw.githubusercontent.com/Zoe2140wu/background-traffic-on-geni/master/replaywrapper
+sudo wget -P /usr/local/bin https://raw.githubusercontent.com/Zoe2140wu/background-traffic-on-geni/master/replaywrapper
 sudo chmod a+x /usr/local/bin/replaywrapper
 ```
 
