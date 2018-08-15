@@ -1,11 +1,29 @@
 #!/bin/bash
 
-INPUT_PCAP_NAME="youtube5"
 
-while getopts ":f:" opt; do
-  case $opt in
+# Default settings that you can override with command line arguments
+INPUT_PCAP_NAME="youtube5"
+IP_ENDPOINT_INET="10.0.1.254"
+IP_ENDPOINT_LOCAL="10.0.2.254"
+DATA_DIR="/mnt"
+EXTENSION="pcap"
+
+while getopts ":f:l:i:d:e:" opt; do
+  case "$opt" in
     f)
-      INPUT_PCAP_NAME="$OPTARG" 
+      INPUT_PCAP_NAME="$OPTARG"
+      ;;
+    l)
+      IP_ENDPOINT_LOCAL="$OPTARG"
+      ;;
+    i)
+      IP_ENDPOINT_INET="$OPTARG"
+      ;;
+    d)
+      DATA_DIR="$OPTARG"
+      ;;
+    e)
+      EXTENSION="$OPTARG"
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
@@ -21,11 +39,13 @@ done
 IP_ROUTER_FROM_INET="10.0.4.1"
 IP_ROUTER_FROM_LOCAL="10.0.3.1"
 
-IP_ENDPOINT_INET="10.0.1.254"
-IP_ENDPOINT_LOCAL="10.0.2.254"
-
-PREP_RULE="--reverse -c 131.202.240.150/32"
-REPLAY_RULE="--loop=0" 
+# Find out which IP address should be treated as the 'local' IP
+DATA_LOCAL_IP=$(tshark -r "$DATA_DIR"/"$INPUT_PCAP_NAME"."$EXTENSION" -qz conv,ip |
+	tail -n+6 | awk '{print $1"\n"$3}' | sort  | uniq -c |
+	sort -nr | head -n 1 | awk '{print $2}')
+	
+PREP_RULE="--reverse -c $DATA_LOCAL_IP/32"
+REPLAY_RULE="--loop=0"
 
 # Get MAC addresses and interface name for traffic from Internet
 ping "$IP_ROUTER_FROM_INET" -c 1 > /dev/null 2>&1
@@ -41,7 +61,8 @@ MAC_REPLAY_FROM_LOCAL=$(cat "/sys/class/net/$IFACE_REPLAY_FROM_LOCAL/address")
 
 # Print informational messages
 echo "================================================================="
-echo "Using file $INPUT_PCAP_NAME"
+echo "Using file $DATA_DIR/$INPUT_PCAP_NAME.$EXTENSION"
+echo "Treating $DATA_LOCAL_IP as the local IP address ('client')"
 echo "-----------------------------------------------------------------"
 echo "Traffic from local network to Internet will be rewritten with:"
 echo "Source MAC: $MAC_REPLAY_FROM_LOCAL  Dest MAC: $MAC_ROUTER_FROM_LOCAL"
@@ -53,25 +74,24 @@ echo "Source MAC: $MAC_REPLAY_FROM_INET  Dest MAC: $MAC_ROUTER_FROM_INET"
 echo "Source IP: $IP_ENDPOINT_INET Dest IP: $IP_ENDPOINT_LOCAL"
 echo "and will leave the replay node via interface $IFACE_REPLAY_FROM_INET"
 echo "================================================================="
- 
+
 
 # Divide into client-server and server-client traffic
-sudo /usr/bin/tcpprep \
+/usr/bin/tcpprep \
 	$PREP_RULE \
-	-i "$INPUT_PCAP_NAME".pcap -o "$INPUT_PCAP_NAME".cache
+	-i "$DATA_DIR"/"$INPUT_PCAP_NAME"."$EXTENSION" -o "$INPUT_PCAP_NAME".cache
 
-# Rerwite layer 2 and layer 3 headers
-sudo LD_LIBRARY_PATH=/usr/local/lib /usr/bin/tcprewrite \
+# Rewrite layer 2 and layer 3 headers
+/usr/bin/tcprewrite \
 	--enet-dmac="$MAC_ROUTER_FROM_INET","$MAC_ROUTER_FROM_LOCAL" \
 	--enet-smac="$MAC_REPLAY_FROM_INET","$MAC_REPLAY_FROM_LOCAL" \
 	--endpoints="$IP_ENDPOINT_INET":"$IP_ENDPOINT_LOCAL"  \
 	--mtu-trunc \
-	--cachefile="$INPUT_PCAP_NAME".cache --infile="$INPUT_PCAP_NAME".pcap \
+	--cachefile="$INPUT_PCAP_NAME".cache --infile="$DATA_DIR"/"$INPUT_PCAP_NAME"."$EXTENSION" \
 	--outfile="$INPUT_PCAP_NAME"-rewrite.pcap
 
 # Replay traffic
-sudo LD_LIBRARY_PATH=/usr/local/lib /usr/bin/tcpreplay \
+sudo /usr/bin/tcpreplay \
 	$REPLAY_RULE \
 	--intf1="$IFACE_REPLAY_FROM_INET" --intf2="$IFACE_REPLAY_FROM_LOCAL" \
 	--cachefile "$INPUT_PCAP_NAME".cache "$INPUT_PCAP_NAME"-rewrite.pcap
-
