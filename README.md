@@ -16,6 +16,7 @@ This section should include:
 * Wait for it to come up and log in
 * Set up extra disk space on tcpreplay node
 * Add static ARP entries on router
+* Get the replaywrapper script from Github: use wget with sudo, specify argument to save in /usr/local/bin, and then run: `sudo chmod a+x /usr/local/bin/replaywrapper`
 
 ### Acquire dataset
 
