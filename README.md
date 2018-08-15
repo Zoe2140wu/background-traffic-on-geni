@@ -42,16 +42,18 @@ sudo wget -P /usr/local/bin https://raw.githubusercontent.com/Zoe2140wu/backgrou
 sudo chmod a+x /usr/local/bin/replaywrapper
 ```
 
-The `replaywrapper` script should by available when you run `ls /usr/local/bin` 
+If you run `which replaywrapper`, you should see that the `replaywrapper` is ready to run from `/usr/local/bin/replaywrapper`.
 
-We also need to set up the router so that it will redirect the background traffic between the "local network" and the "Internet". , SSH into your router node to add static ARP entries. Run 
+We also need to set up the router so that it will redirect the background traffic between the "local network" and the "Internet". Later in the experiment, when you replay the background traffic, you will select the IP address that should appear as the source and destination IP address in the packet headers. Since in our topology, the "Internet" uses the address range 10.0.1.0/24, the "Internet" endpoint IP address for the background traffic should be in this range, and similarly, the "local" endpoint IP address should be in 10.0.2.0/24. However, the source and destination addresses for the background traffic should also be IP addresses that don't exist in the network. Since they don't exist, the router won't be able to resolve the IP addresses to MAC addresses using ARP, so we will add static ARP entries on the router for all of the endpoint IP addresses that we'll use for our background traffic.
+
+The default endpoint IP addresses are 10.0.1.254 and 10.0.2.254, so if you're going to use the defaults, SSH into your router node and add static ARP entries with:
 
 ```
 sudo arp -s 10.0.1.254 02:47:a9:bb:e0:d0
 sudo arp -s 10.0.2.254 02:37:a9:bb:e0:d0
 ```
 
-That way traffic will run through the experiment nodes.
+(these are fake MAC addresses!) If you're going to use other endpoint IP addresses, add static ARP entries on the router node for these as well.
 
 ### Acquire dataset
 
