@@ -9,8 +9,9 @@
 ## Run my experiment
 
 
-
 ### Set up topology
+
+First, reserve the topology for this experiment using [my Rspec] (https://github.com/Zoe2140wu/background-traffic-on-geni/blob/master/Datasetexperiment_request_rspec.xml)
 
 This section should include:
 
