@@ -2,7 +2,7 @@
 
 
 ## Background
-
+When researchers want to test a new video streaming algorithm or cyber-attack preventor, they often test their development in a testbeds, network simulators that recreates somewhat realistic network conditions while providing a level of control. While one of the key factors in creating a realistic environment is background traffic, researchers often ignore background traffic entirely or compromise the representation of real traffic for the ease of synthetic traffic generators. 
 
 ## Results
 
