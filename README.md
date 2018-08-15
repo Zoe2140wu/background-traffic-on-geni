@@ -27,7 +27,10 @@ When your resources are ready, SSH into your `tcpreplay` node. We need to set up
 
 Run 
 
-`sudo chmod a+w /mnt`
+```
+sudo /usr/testbed/bin/mkextrafs /mnt
+sudo chmod a+w /mnt
+```
 
 to mount your extra disk space. Your extra disk space should be available in the mnt directory.
 
