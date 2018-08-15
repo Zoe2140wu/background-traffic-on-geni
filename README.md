@@ -35,6 +35,15 @@ sudo chmod a+w /mnt
 to mount your extra disk space. Your extra disk space should be available in the `/mnt` directory.
 
 
+We will also have to install some software on the `tcpreplay` node. Run
+
+```
+sudo apt-get update
+sudo apt-get -y install tcpreplay tshark
+```
+
+(you can choose "yes" when prompted during the setup).
+
 Next, get the `replaywrapper` script from GitHub. In your `tcpreplay` node, run
 
 ```
@@ -93,17 +102,28 @@ unzip CompletePCAPs.zip
 
 and run `ls` to verify that you have extracted the files.
 
-Advantages    | Disadvantages
-------------- | ------------- 
-Able to specify application traffic | Have to email them to obtain a copy of the dataset
-Fine-grained control: each capture is a few minutes long, can control proportion of each application type in experiment
-Recent| Doesn’t indicate what proportion of each application should be in background traffic      | 
+As an alternative, depending on the needs of your experiment, you may be more interested in having background traffic with a realistic mix of applications and not necessarily have fine-grained control over what kind of traffic is represented. In this case, you can use the dataset from the University of Twente, described in
 
-Citation: 
+> Barbosa, Rafael Ramos Regis, et al. "Simpleweb/University of Twente traffic traces data repository." Centre for Telematics and Information Technology University of Twente, Enschede, Technical Report (2010). PDF: [https://ris.utwente.nl/ws/files/5096467/traces.pdf](https://ris.utwente.nl/ws/files/5096467/traces.pdf)
 
+Specifically, we will use the "Trace 6" data described as follows:
 
-Link: http://www.unb.ca/cic/datasets/vpn.html
+>  A 100 Mbit/s Ethernet link connecting an educational organization to the internet has been measured. This is a relatively small organization with around 35 employees and a ittle over 100 students working and studying at this site (the headquarter location of this organization). All workstations at this location ( 100 in total) have a 100Mbit/s Lan connection. The core network consists of a 1 Gbit/s connection. The recordings took place between the external optical fiber modem and the first firewall. The measured link was only mildly loaded during this period. These measurements are from May - June 2007.
 
+The data is available at [https://traces.simpleweb.org/traces/TCP-IP/location6/](https://traces.simpleweb.org/traces/TCP-IP/location6/). To download this onto your `tcpreplay` node, move to the directory with extra space:
+
+```
+cd /mnt
+```
+
+and then run
+
+```
+wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070501-2055.gz
+wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070523-0005.gz
+wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070531-2043.gz
+wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070615-1644.gz
+```
 
 MAWI
 Traces are collected from various sampling points on the WIDE Backbone, a trans-Pacific link between Japan and the United States
