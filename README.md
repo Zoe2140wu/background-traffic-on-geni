@@ -55,11 +55,43 @@ sudo arp -s 10.0.2.254 02:37:a9:bb:e0:d0
 
 (these are fake MAC addresses!) If you're going to use other endpoint IP addresses, add static ARP entries on the router node for these as well.
 
-### Acquire dataset
+### Acquire a dataset
 
-VPN/ non-VPN Dataset
+In this experiment, we show how to use a dataset of background traffic [described here](http://www.unb.ca/cic/datasets/vpn.html) that was generated at the University of New Brunswick for the paper
 
-The dataset from the University of New Brunswick includes real traffic from two users– Alice and Bob– as they use various applications for browsing, email, chat, video streaming, file transfers, and others. 
+> Gerard Drapper Gil, Arash Habibi Lashkari, Mohammad Mamun, Ali A. Ghorbani, "Characterization of Encrypted and VPN Traffic Using Time-Related Features", In Proceedings of the 2nd International Conference on Information Systems Security and Privacy(ICISSP 2016) , pages 407-414, Rome, Italy.
+
+The dataset captures real traffic from end users as they use various applications for browsing, email, chat, video streaming, file transfers, and others.  The major advantages to using this dataset for background traffic are:
+
+* You can specify what kind of applications should appear in your background traffic, and in what proportion.
+* The traffic is recent, captured in 2016, and reflects modern Internet applications.
+
+However, this dataset gives no indiciation of what proportion of each application *should* be in background traffic, so you will have to use good judgment in making those experiment decisions.
+
+To acquire a copy of this dataset, email [cic@unb.ca](cic@unb.ca). You will receive in response a link to a download website and a username and password for accessing the download website.
+
+Browse the download website to find the file containing the captures, which is in the "ISCX-VPN-NonVPN-2016" subdirectory and is titled "CompletePCAPs.zip". Right-click on the file link and copy the URL.
+
+Then, on the `tcpreplay` node, move to the directory with extra space:
+
+```
+cd /mnt
+```
+
+and download this file using the command
+
+```
+wget --user USERNAME --password 'PASSWORD' URL
+```
+where in place of `USERNAME`, `PASSWORD`, and `URL`, you specify the username and password you received by email, and the URL for the "CompletePCAPs.zip" file that you just found in your browser.
+
+Extract the capture files from the archive using
+
+```
+unzip CompletePCAPs.zip
+```
+
+and run `ls` to verify that you have extracted the files.
 
 Advantages    | Disadvantages
 ------------- | ------------- 
@@ -67,8 +99,7 @@ Able to specify application traffic | Have to email them to obtain a copy of the
 Fine-grained control: each capture is a few minutes long, can control proportion of each application type in experiment
 Recent| Doesn’t indicate what proportion of each application should be in background traffic      | 
 
-Citation: Gerard Drapper Gil, Arash Habibi Lashkari, Mohammad Mamun, Ali A. Ghorbani, "Characterization of Encrypted and VPN Traffic Using Time-Related Features", In Proceedings of the 2nd International Conference on Information Systems Security and Privacy(ICISSP 2016) , pages 407-414, Rome, Italy.
-
+Citation: 
 
 
 Link: http://www.unb.ca/cic/datasets/vpn.html
