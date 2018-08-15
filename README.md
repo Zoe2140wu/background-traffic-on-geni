@@ -11,13 +11,21 @@
 
 ### Set up topology
 
-First, download my Rspec. Open your computer's control panel (Termianl if you are using MAC) and run 
+In the GENI Portal, create a new slice and press "Add Resources." Scroll down to the "Choose RSpec" section, select the "URL" option, and load the RSpec from the following URL: [https://raw.githubusercontent.com/Zoe2140wu/background-traffic-on-geni/master/replaywrapperRspec.xml](https://raw.githubusercontent.com/Zoe2140wu/background-traffic-on-geni/master/replaywrapperRspec.xml)
 
-`wget https://raw.githubusercontent.com/Zoe2140wu/background-traffic-on-geni/master/replaywrapperRspec.xml`
+This will load the following topology into your canvas:
 
-The Rspec should be in your home directory as replaywrapperRspec.xml. If you want to read the contents of the page, you can go to my repository page and open [replaywrapperRspec.xml](https://github.com/Zoe2140wu/background-traffic-on-geni/blob/master/replaywrapperRspec.xml).
+TODO - include a picture here
 
-In the GENI Portal, create a new slice and press "Add Resources." Scroll down to the "Choose RSpec" bar, select the "File" option, and upload your downloaded replaywrapper RSpec. Note that the topology uses a raw PC IG node, which is not available on all aggregates. Press "Reserve Resources" at the very bottom of the page and wait for your resources to be ready (they should be green as shown). When they are ready, SSH into your tcpreplay node. Run 
+TODO: explain the topology
+
+Click on the "Site 1" button and bind this RSpec to an InstaGENI site. Note that the node used for replaying traffic should be a raw PC IG, of which limited quantities are available - if you aren't able to satisfy this request at the first aggregate you try, you may need to try others. 
+
+Press "Reserve Resources" at the very bottom of the page and wait for your resources to be ready to log in. 
+
+When your resources are ready, SSH into your `tcpreplay` node. We need to set up extra disk space on this node in order to have enough room to save large traffic capture files.
+
+Run 
 
 `sudo chmod a+w /mnt`
 
