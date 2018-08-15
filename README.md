@@ -125,6 +125,24 @@ wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070531-2043.gz
 wget https://traces.simpleweb.org/traces/TCP-IP/location6/loc6-20070615-1644.gz
 ```
 
+To extract the traces from the archive files, run
+
+```
+gunzip loc6-20070501-2055.gz
+gunzip loc6-20070523-0005.gz
+gunzip loc6-20070531-2043.gz
+gunzip loc6-20070615-1644.gz
+```
+
+Also add a file extension to each file:
+
+```
+mv loc6-20070501-2055 loc6-20070501-2055.pcap
+mv loc6-20070523-0005 loc6-20070523-0005.pcap
+mv loc6-20070531-2043 loc6-20070531-2043.pcap
+mv loc6-20070615-1644 loc6-20070615-1644.pcap
+```
+
 MAWI
 Traces are collected from various sampling points on the WIDE Backbone, a trans-Pacific link between Japan and the United States
 
