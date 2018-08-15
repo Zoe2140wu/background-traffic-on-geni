@@ -12,7 +12,7 @@
 
 This section should include:
 
-* Reserve topology using my Rspec. Note that it uses a raw PC, not all aggregates will have one available
+* Reserve topology using my Rspec (modify to not include sink nodes). Note that it uses a raw PC, not all aggregates will have one available
 * Wait for it to come up and log in
 * Set up extra disk space on tcpreplay node
 * Add static ARP entries on router
