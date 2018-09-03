@@ -36,7 +36,7 @@ In the GENI Portal, create a new slice and press "Add Resources." Scroll down to
 
 This will load the following topology into your canvas:
 
-<img src = "https://user-images.githubusercontent.com/23636883/44962385-60d73980-aeed-11e8-931d-de8dd93b63dc.png" width="500" height="500" >
+<img src = "https://user-images.githubusercontent.com/23636883/44962385-60d73980-aeed-11e8-931d-de8dd93b63dc.png">
 
 In this topology, researchers run experimental traffic through the local and internet nodes and background traffic from the tcpreplay node. For example, traffic being run from the local node to the internet node will first stop at the router and queue up with client-server background traffic sent from the tcpreplay node. After mixing as it would in a real network, the experimental traffic is directed to the internet node and background traffic is directed to a "dummy" MAC addresses. We will later set up these destination IP addresses.
 
