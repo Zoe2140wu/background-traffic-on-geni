@@ -27,14 +27,6 @@ Our solution is to choose the most reliable datasets we could find and put a "wr
 
 > Han Wang, Ki Suh Lee, Erluo Li, Chiun Lin Lim, Ao Tang, and Hakim Weatherspoon. 2014. Timing is Everything: Accurate, Minimum Overhead, Available Bandwidth Estimation in High-speed Wired Networks. In Proceedings of the 2014 Conference on Internet Measurement Conference (IMC ’14). 407–420
 
-- background traffic researchers are currently using may not be so realistic
-- compare synthetically generated traffic and realistic application traffic
--- include graphs on both and detailed descriptions
-- explain how some labs we looked at even pointed out how results using realistic traffic were a lot different than results using synthetic traffic
-- explain why labs often don't use realistic traffic
-- our solution: put a wrap around multi steps of traffic replay tools and chose traffic datasets
-
-
 ## Run my experiment
 
 
@@ -44,7 +36,7 @@ In the GENI Portal, create a new slice and press "Add Resources." Scroll down to
 
 This will load the following topology into your canvas:
 
-![Alt text](Users/zoewu/Desktop/topology "Rspec Topology")
+https://github.com/Zoe2140wu/background-traffic-on-geni/issues/1#issue-356325715
 
 In this topology, researchers run experimental traffic through the local and internet nodes and background traffic from the tcpreplay node. For example, traffic being run from the local node to the internet node will first stop at the router and queue up with client-server background traffic sent from the tcpreplay node. After mixing as it would in a real network, the experimental traffic is directed to the internet node and background traffic is directed to a "dummy" MAC addresses. We will later set up these destination IP addresses.
 
@@ -173,7 +165,10 @@ mv loc6-20070615-1644 loc6-20070615-1644.pcap
 ```
 
 ### Play back background traffic
-
+- log into tcpreplay node
+- download whatever u need to download
+- choose options
+- run command
 
 ## Notes
 
