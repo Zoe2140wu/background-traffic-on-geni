@@ -171,10 +171,4 @@ mv loc6-20070615-1644 loc6-20070615-1644.pcap
 - run command
 
 ## Notes
-We hope that in the future we can work on improving traffic's reliability and optimizing user input. When we compared graphs of real traffic and replayed traffic, one of the main issues we noticed was that the tcpreplay node struggled with sending traffic at a high data rate. To solve this, we need to use a raw IG PC computer, which is scarce on GENI; thus, we may have to tune other parameters. 
-
-Another issue we had was with sending large packets with an MTU greater than 1500. Tcpreplay had a fragmentation option that could potentially solve this problem but has so many issues we were unable to successfully include it in our code. We currently just truncate packets but hope to continue experimenting with the fragmentation option.
-
-Because Tcpreplay is open-looped, meaning traffic is not feedback-based, we want to experiment with closed-loop traffic replay tools such as Tmix. 
-
-Finally, we hope to explore other traffic datasets and topologies to offer more options for researchers.
+Further along, we intend to imporoving the accuracy of our replayed background traffic more realistic and optimizing user input. For example, since tcpreplay is unable to send traffic at a high data rate, we want to experiment with a Raw PC IG computer or tune other parameters. Additionally, while we currently reply on tcpreplay's truncate option to send large packets, we hope to work more with tcpreplay's fragmentation option and include it in our code. We also want to experiment with tools such as Tmix since ots closed-loop, feedback-based system better reflects real traffic. Finally, we hope to explore other traffic datasets and topologies to offer more options for researchers.
