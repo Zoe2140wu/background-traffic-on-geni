@@ -165,10 +165,17 @@ mv loc6-20070615-1644 loc6-20070615-1644.pcap
 ```
 
 ### Play back background traffic
-- log into tcpreplay node
-- download whatever u need to download
-- choose options
-- run command
+
+After acquiring the datasets, ssh into your tcpreplay node. To run the wrapper:
+```
+replaywrapper -<flag>=str
+```
+Where you replay <flag> with one of the following options:
+  -f Input a pcap file
+  -l Specify endpoint IP address for local host
+  -i Specify endpoint IP address for internet host
+  -d Run command in /mnt directory
+  -e Pcap file extension name (either .pcap or .pcap.gz)
 
 ## Notes
 Further along, we intend to imporoving the accuracy of our replayed background traffic more realistic and optimizing user input. For example, since tcpreplay is unable to send traffic at a high data rate, we want to experiment with a Raw PC IG computer or tune other parameters. Additionally, while we currently reply on tcpreplay's truncate option to send large packets, we hope to work more with tcpreplay's fragmentation option and include it in our code. We also want to experiment with tools such as Tmix since ots closed-loop, feedback-based system better reflects real traffic. Finally, we hope to explore other traffic datasets and topologies to offer more options for researchers.
