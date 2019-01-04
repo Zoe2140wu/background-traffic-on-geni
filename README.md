@@ -3,7 +3,7 @@
 
 ## Background
 
-Network researchers often test new developments with experiments where by they send a specific stream of traffic over an experimental network and measure the experimental traffic's performance. However, their results can be skewed by leaving out background traffic, which would run alongside the experimental traffic in a realistic network setting, or by running  unrealistic background traffic patterns. Thus, to accurately test the experiment results they are trying to find, researchers need to not only include background traffic in their experiments, but also to generate traffic that is as similar as possible to real background traffic.
+Network researchers often test new developments with experiments where by they send a specific stream of traffic over an experimental network and measure the experimental traffic's performance. However, their results can be skewed by leaving out background traffic, which would run alongside the experimental traffic in a realistic network setting, or by running  unrealistic background traffic patterns. Thus, to ensure accurate results, researchers need to not only include background traffic in their experiments, but also to generate traffic that is as similar as possible to real background traffic.
 
 ## Results
 
